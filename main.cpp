@@ -64,19 +64,17 @@ public:
         cout<<"Inserted new term with coefficient "<<coeff<<", and exponent "<<expo<<endl;
         Term *newTerm = new Term(coeff, expo);
 
-        if (!polynomial) {
+        if (!polynomial || polynomial->getExponent() >= expo) {
+            newTerm->setNext(polynomial);
             polynomial = newTerm;
         } else {
             Term *temp = polynomial;
-            while ( coeff > temp->getCoefficient() && temp->getNext() != NULL ) {
+            while (temp->getNext() != NULL &&  expo > temp->getNext()->getExponent() ) {
                 temp = temp->getNext();
             }
+            newTerm->setNext(temp->getNext());
             temp->setNext(newTerm);
         }
-    }
-
-    void sortPolynomial() {
-
     }
 
     void deleteTerm(int coeff, int expo) {
