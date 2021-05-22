@@ -109,7 +109,6 @@ public:
         }
 
         cout<<"The term with coefficient "<<coeff<<", and exponent "<<expo<<" got deleted."<<endl;
-
     }
 
     void reversePolynomial() {
@@ -146,8 +145,12 @@ public:
             temp->setCoefficient(coeff * expo);
             temp->setExponent(expo - 1);
 
+            if (temp->getExponent() == -1)
+                deleteTerm(temp->getCoefficient(), temp->getExponent());
+
             temp = temp->getNext();
         }
+
     }
 
     string toString() {
@@ -165,10 +168,6 @@ public:
 
             else if (temp->getExponent() == 0) {
                 thePolynomial += to_string(temp->getCoefficient());
-            }
-
-            else if (temp->getExponent() == -1) {
-                
             }
 
             else {
